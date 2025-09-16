@@ -1,0 +1,15 @@
+curl -X POST "https://api.upstox.com/v2/login/authorization/token" \
+-H "accept: application/json" \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-d "code=77Njq-&client_id=d80a06f0-7365-4505-a3b5-57c82e083c1a&client_secret=h7zgivwk51&redirect_uri=https://iavian.com/end&grant_type=authorization_code&extended_token=true"
+
+###
+curl -X 'POST' 'https://api.upstox.com/v3/login/auth/token/request/678d46e1-91ac-4b8d-925d-89c8e3015c2b' \
+-H 'accept: application/json' \
+-H 'Content-Type: application/json' \
+-d '{
+  "client_secret": "{your_client_secret}"
+}'
+
+###
+https://api.upstox.com/v2/login/authorization/dialog?response_type=code&client_id=d80a06f0-7365-4505-a3b5-57c82e083c1a&redirect_uri=https://iavian.com/end&state=OPTIONAL_STATE

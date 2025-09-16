@@ -92,11 +92,26 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     };
                     match k {
                         market_data::feed::FeedUnion::Ltpc(ltpc) => {
+                            let Some(instrument) = targets.get(f.0) else {
+                                continue;
+                            };
                             if ltpc.ltp <= 0.0 {
-                                let Some(instrument) = targets.get(f.0) else {
-                                    continue;
-                                };
                                 println!("{},{}", instrument.name1, instrument.key);
+                                continue;
+                            }
+
+                            let change =
+                                ((ltpc.ltp - instrument.pvalue) / instrument.pvalue) * 100.0;
+
+                            if change > 2.0 && change < 6.0 {
+                                println!(
+                                    "{},{} {} {} {}",
+                                    instrument.name1,
+                                    instrument.key,
+                                    instrument.pvalue,
+                                    ltpc.ltp,
+                                    ltpc.ltq
+                                );
                             }
                         }
                         market_data::feed::FeedUnion::FullFeed(_) => {}
